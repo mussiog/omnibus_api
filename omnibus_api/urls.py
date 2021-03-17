@@ -20,7 +20,7 @@ from nco_ping import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/nco_ping', views.NcoPingList.as_view()),
-#    path('api/nco_ping/<int:pk>/remove', views.NcoPingRetrieveDestroy.as_view()),
+    path('api/nco_ping/<int:pk>/remove', views.NcoPingRetrieveDestroy.as_view()),
     path('api/nco_ping/add', views.NcoPingCreate.as_view()),
     path('api-auth/', include('rest_framework.urls')),
 ]
