@@ -16,7 +16,7 @@ class Nco_pingList(generics.ListCreateAPIView):
 
 class Nco_pingRetrieveDestroy(generics.RetrieveDestroyAPIView):
     queryset = Nco_ping.objects.all()
-    serializer_class = PostSerializer
+    serializer_class = NcoPingSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def delete(self, request, *args, **kwargs):
@@ -28,22 +28,22 @@ class Nco_pingRetrieveDestroy(generics.RetrieveDestroyAPIView):
 
 
 class Nco_pingCreate(generics.CreateAPIView, mixins.DestroyModelMixin):
-    serializer_class = VoteSerializer
+    serializer_class = NcoPingSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         user = self.request.user
-        post = Post.objects.get(pk=self.kwargs['pk'])
-        return Vote.objects.filter(voter=user, post=post)
+        host = Post.objects.get(pk=self.kwargs['pk'])
+        return Vote.objects.filter(host=host)
 
     def perform_create(self, serializer):
         if self.get_queryset().exists():
-            raise ValidationError('You have already voted for this post :)')
-        serializer.save(voter=self.request.user, post=Post.objects.get(pk=self.kwargs['pk']))
+            raise ValidationError('host already exist on ping probe')
+        serializer.save(post=Post.objects.get(pk=self.kwargs['pk']))
 
     def delete(self, request, *args, **kwargs):
         if self.get_queryset().exists():
             self.get_queryset().delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
         else:
-            raise ValidationError('You never voted for this post...silly!')
+            raise ValidationError('your server doesn\'t exist')
