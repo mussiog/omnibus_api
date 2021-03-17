@@ -21,6 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/nco_ping', views.Nco_pingList.as_view()),
     path('api/nco_ping/<int:pk>/remove', views.Nco_pingRetrieveDestroy.as_view()),
-#    path('api/nco_ping/add', views.Nco_pingCreate.as_view()),
+    path('api/nco_ping/add', views.Nco_pingCreate.as_view()),
     path('api-auth/', include('rest_framework.urls')),
 ]

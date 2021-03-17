@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from .models import Nco_ping
+from .models import NcoPing
 
 class NcoPingSerializer(serializers.ModelSerializer):
-    host = serializers.ReadOnlyField(source='poster.username')
-    delay = serializers.ReadOnlyField(source='poster.id')
+    host = serializers.ReadOnlyField()
+    delay = serializers.ReadOnlyField()
     description = serializers.SerializerMethodField()
 
     class Meta:

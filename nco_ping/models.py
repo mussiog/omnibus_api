@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-Class Nco_ping(models.Model):
+Class NcoPing(models.Model):
     host = models.CharField(max_lenth=100)
     delay = models.IntegerField()
     description = models.CharField(max_lenth=100)

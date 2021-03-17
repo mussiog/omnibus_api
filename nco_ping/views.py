@@ -5,8 +5,8 @@ from rest_framework.response import Response
 from .models import Post, Vote
 from .serializers import PostSerializer, VoteSerializer
 
-class Nco_pingList(generics.ListCreateAPIView):
-    queryset = Nco_ping.objects.all()
+class NcoPingList(generics.ListCreateAPIView):
+    queryset = NcoPing.objects.all()
     serializer_class = NcoPingSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
@@ -14,32 +14,32 @@ class Nco_pingList(generics.ListCreateAPIView):
         serializer.save(poster=self.request.user)
 
 
-class Nco_pingRetrieveDestroy(generics.RetrieveDestroyAPIView):
-    queryset = Nco_ping.objects.all()
+class NcoPingRetrieveDestroy(generics.RetrieveDestroyAPIView):
+    queryset = NcoPing.objects.all()
     serializer_class = NcoPingSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def delete(self, request, *args, **kwargs):
-        host = Nco_ping.objects.filter(pk=kwargs['pk'])
+        host = NcoPing.objects.filter(pk=kwargs['pk'])
         if post.exists():
             return self.destroy(request, *args, **kwargs)
         else:
             raise ValidationError('Host doesn\'t exist')
 
 
-class Nco_pingCreate(generics.CreateAPIView, mixins.DestroyModelMixin):
+class NcoPingCreate(generics.CreateAPIView, mixins.DestroyModelMixin):
     serializer_class = NcoPingSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         user = self.request.user
-        host = Nco_ping.objects.get(pk=self.kwargs['pk'])
-        return Nco_ping.objects.filter(host=host)
+        host = NcoPing.objects.get(pk=self.kwargs['pk'])
+        return NcoPing.objects.filter(host=host)
 
     def perform_create(self, serializer):
         if self.get_queryset().exists():
             raise ValidationError('host already exist on ping probe')
-        serializer.save(post=Nco_ping.objects.get(pk=self.kwargs['pk']))
+        serializer.save(post=NcoPing.objects.get(pk=self.kwargs['pk']))
 
     def delete(self, request, *args, **kwargs):
         if self.get_queryset().exists():
