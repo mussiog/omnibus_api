@@ -7,5 +7,5 @@ class NcoPingSerializer(serializers.ModelSerializer):
     description = serializers.SerializerMethodField()
 
     class Meta:
-        model = Post
+        model = NcoPing
         fields = ['id', 'host', 'delay', 'description', 'lastedit']
