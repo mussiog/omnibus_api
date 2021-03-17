@@ -20,7 +20,7 @@ class Nco_pingRetrieveDestroy(generics.RetrieveDestroyAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def delete(self, request, *args, **kwargs):
-        host = Post.objects.filter(pk=kwargs['pk'])
+        host = Nco_ping.objects.filter(pk=kwargs['pk'])
         if post.exists():
             return self.destroy(request, *args, **kwargs)
         else:
@@ -33,13 +33,13 @@ class Nco_pingCreate(generics.CreateAPIView, mixins.DestroyModelMixin):
 
     def get_queryset(self):
         user = self.request.user
-        host = Post.objects.get(pk=self.kwargs['pk'])
-        return Vote.objects.filter(host=host)
+        host = Nco_ping.objects.get(pk=self.kwargs['pk'])
+        return Nco_ping.objects.filter(host=host)
 
     def perform_create(self, serializer):
         if self.get_queryset().exists():
             raise ValidationError('host already exist on ping probe')
-        serializer.save(post=Post.objects.get(pk=self.kwargs['pk']))
+        serializer.save(post=Nco_ping.objects.get(pk=self.kwargs['pk']))
 
     def delete(self, request, *args, **kwargs):
         if self.get_queryset().exists():
