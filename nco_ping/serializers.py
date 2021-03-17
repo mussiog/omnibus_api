@@ -4,7 +4,7 @@ from .models import NcoPing
 class NcoPingSerializer(serializers.ModelSerializer):
     host = serializers.ReadOnlyField()
     delay = serializers.ReadOnlyField()
-    description = serializers.SerializerMethodField()
+    description = serializers.ReadOnlyField()
 
     class Meta:
         model = NcoPing
