@@ -7,5 +7,5 @@ class NcoPing(models.Model):
     description = models.CharField(max_lenth=100)
     lastedit = models.DateTimeField(auto_now_add=True)
 
-    Class Meta:
+    class Meta:
         ordering = ['-lastedit']
