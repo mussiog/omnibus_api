@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework import generics, permissions, mixins, status
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
-from .models import Post, Vote
-from .serializers import PostSerializer, VoteSerializer
+from .models import Post
+from .serializers import NcoPingSerializer
 
 class NcoPingList(generics.ListCreateAPIView):
     queryset = NcoPing.objects.all()
